@@ -342,6 +342,60 @@
         }
 
         /* === EXPERIENCE === */
+
+        /* === RESEARCH === */
+        #research { background: var(--bg); }
+
+        .research-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.35s;
+            border-left: 3px solid var(--accent);
+        }
+        .research-card:hover {
+            border-color: rgba(34,211,238,0.25);
+            border-left-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+        }
+
+        .research-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .research-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            max-width: 70%;
+        }
+
+        .research-venue {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+
+        .research-detail {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .research-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
         .exp-item {
             border-left: 2px solid var(--border);
             padding-left: 2rem;
@@ -568,6 +622,7 @@
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Systems</a></li>
+            <li><a href="#research">Research</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#skills">Stack</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -641,7 +696,7 @@
                 <span class="stack-tag">Docker</span>
             </div>
             <div class="project-links">
-                <a href="#">Live Demo</a>
+                <a href="https://irtikak.github.io/malware-detection-ai/">Live Demo</a>
             </div>
         </div>
 
@@ -672,34 +727,7 @@
             </div>
             <div class="project-links">
                 <a href="https://github.com/IrtikaK/Cardiovascular_Risk_Prediction">GitHub</a>
-            </div>
-        </div>
-
-        <!-- UK Grid Forecaster -->
-        <div class="project">
-            <div class="project-top">
-                <span class="project-name">UK Grid Forecaster</span>
-                <span class="project-badge badge-published">Accepted — Springer ETMCIS 2026</span>
-            </div>
-            <div class="project-subtitle">Transformer-Based Multi-Horizon Electricity Demand Forecasting</div>
-            <p class="project-story">
-                <strong>The challenge:</strong> LSTM models for energy forecasting were bloated and plateauing in accuracy.<br><br>
-                <strong>The approach:</strong> Engineered a custom Transformer architecture with multi-head self-attention and positional encodings. Processed 139,632+ half-hourly observations spanning meteorological, temporal, and grid interconnector variables. Benchmarked across nine forecast horizons from 1 hour to 4 weeks.<br><br>
-                <strong>The result:</strong> 41% MAE improvement over LSTM baselines with 54% fewer parameters. Paper accepted at Springer ETMCIS 2026.
-            </p>
-            <div class="project-results">
-                <span class="result-chip">41% MAE ↓</span>
-                <span class="result-chip">54% Fewer Params</span>
-                <span class="result-chip">139K+ Observations</span>
-                <span class="result-chip">9 Horizons</span>
-                <span class="result-chip">Springer ETMCIS 2026</span>
-            </div>
-            <div class="project-stack">
-                <span class="stack-tag">PyTorch</span>
-                <span class="stack-tag">Transformer</span>
-                <span class="stack-tag">LSTM</span>
-                <span class="stack-tag">GRU</span>
-                <span class="stack-tag">Feature Engineering</span>
+                <a href="https://huggingface.co/spaces/IrtikaK25/cardio-risk-app">Live Demo</a>
             </div>
         </div>
 
@@ -727,6 +755,57 @@
             </div>
             <div class="project-links">
                 <a href="https://github.com/IrtikaK/Environmental-Sustainability-Analysis-Using-Machine-Learning">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== RESEARCH & PUBLICATIONS ====== -->
+    <section id="research">
+        <div class="section-label">// published research</div>
+        <h2 class="section-title">Research &amp; Publications</h2>
+
+        <div class="research-card">
+            <div class="research-top">
+                <span class="research-title">GNN-Based Malware Detection in IoT Networks: An Attack Graph Approach</span>
+                <span class="project-badge badge-published">IEEE CIPHER 2026</span>
+            </div>
+            <div class="research-venue">Presented at International Conference &middot; Acceptance Rate: 29%</div>
+            <p class="research-detail">
+                Led end-to-end research from problem framing through publication. Designed GNN architectures over attack graph representations of IoT-23 network traffic, benchmarking GraphSAGE, GAT, and GIN across varied topologies. Conducted ablation studies evaluating generalisation, convergence, and computational trade-offs.
+            </p>
+            <div class="research-chips">
+                <span class="result-chip">99.2% Accuracy (GraphSAGE)</span>
+                <span class="result-chip">100% Accuracy (GAT)</span>
+                <span class="result-chip">IoT-23 Dataset</span>
+            </div>
+            <div class="project-stack" style="margin-top:1rem;">
+                <span class="stack-tag">PyTorch Geometric</span>
+                <span class="stack-tag">GraphSAGE</span>
+                <span class="stack-tag">GAT</span>
+                <span class="stack-tag">GIN</span>
+                <span class="stack-tag">NetworkX</span>
+            </div>
+        </div>
+
+        <div class="research-card">
+            <div class="research-top">
+                <span class="research-title">Multi-Horizon Forecasting of UK Electricity Demand Using LSTM, GRU, and Transformer Models</span>
+                <span class="project-badge badge-published">Springer ETMCIS 2026</span>
+            </div>
+            <div class="research-venue">Accepted &middot; Springer Conference Publication</div>
+            <p class="research-detail">
+                Engineered Transformer-based sequence models achieving 41% MAE improvement over LSTM baselines at 54% fewer parameters. Processed 139,632+ real-world half-hourly observations of UK national electricity demand, benchmarking across nine forecast horizons from 1 hour to 4 weeks.
+            </p>
+            <div class="research-chips">
+                <span class="result-chip">41% MAE Improvement</span>
+                <span class="result-chip">54% Fewer Parameters</span>
+                <span class="result-chip">139K+ Observations</span>
+            </div>
+            <div class="project-stack" style="margin-top:1rem;">
+                <span class="stack-tag">PyTorch</span>
+                <span class="stack-tag">Transformer</span>
+                <span class="stack-tag">LSTM</span>
+                <span class="stack-tag">GRU</span>
             </div>
         </div>
     </section>
@@ -777,13 +856,13 @@
                 <h3>MSc Artificial Intelligence Technology</h3>
                 <div class="edu-school">Northumbria University, London</div>
                 <div class="edu-year">2024 — 2026</div>
-                <div class="edu-detail">First Class (Year 1): 74% &middot; ML on Cloud, AI for IoT, Cybersecurity</div>
+                <div class="edu-detail">Focus: ML Systems Design, AI for IoT, Cloud-Native ML Pipelines, Cybersecurity</div>
             </div>
             <div class="edu-card">
                 <h3>B.Tech Electrical Engineering</h3>
                 <div class="edu-school">Rajasthan Technical University, India</div>
                 <div class="edu-year">2017 — 2021</div>
-                <div class="edu-detail">First Class: 75.69%</div>
+                <div class="edu-detail">Foundation: Systems Thinking, Signal Processing, Mathematical Modelling</div>
             </div>
         </div>
     </section>
@@ -879,13 +958,10 @@
         <p>Looking for roles in Applied AI/ML Engineering, Healthcare AI, Intelligent Systems, and teams that value speed, rigour, and end-to-end ownership.</p>
         <div class="contact-row">
             <a href="https://linkedin.com/in/irtika-khan" class="contact-btn" title="LinkedIn">in</a>
-            <a href="mailto:irtiqakhan2016@gmail.com" class="contact-btn" title="Email">&#9993;</a>
+            <a href="/cdn-cgi/l/email-protection#48213a3c213929232029267a78797e082f25292124662b2725" class="contact-btn" title="Email">&#9993;</a>
             <a href="https://github.com/IrtikaK" class="contact-btn" title="GitHub">&#8984;</a>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Irtika Khan. Designed with intent, built to <span>&hearts;</span> ship.</p>
-    </footer>
-</body>
-</html>
+        <p>&copy; 2025 Irtika Khan. Designed with intent, built to <span>&hearts;<
