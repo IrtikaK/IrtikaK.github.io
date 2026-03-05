@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irtika Khan — AI Systems Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0c0f14;
+            --bg-warm: #111318;
+            --bg-card: #16191f;
+            --bg-elevated: #1c2028;
+            --gold: #d4a853;
+            --gold-dim: rgba(212,168,83,0.15);
+            --gold-glow: rgba(212,168,83,0.08);
+            --ice: #7ec8e3;
+            --ice-dim: rgba(126,200,227,0.12);
+            --sage: #8fbc8f;
+            --coral: #e8927c;
+            --text: #edeef2;
+            --text-secondary: #9ea3b0;
+            --text-muted: #5d6272;
+            --border: rgba(255,255,255,0.05);
+            --border-hover: rgba(212,168,83,0.25);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === GRAIN TEXTURE === */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.025'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* === ARCHITECTURAL GRID LINES === */
+        .grid-lines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .grid-lines::before,
+        .grid-lines::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: rgba(212,168,83,0.03);
+        }
+        .grid-lines::before { left: 8%; }
+        .grid-lines::after { right: 8%; }
+
+        /* === AMBIENT LIGHT === */
+        .ambient-light {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse 45% 35% at 10% 0%, rgba(212,168,83,0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 35% 25% at 90% 100%, rgba(126,200,227,0.03) 0%, transparent 60%);
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(12,15,20,0.9);
+            backdrop-filter: blur(24px) saturate(1.2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links { display:flex; gap:2.5rem; list-style:none; }
+        .nav-links a {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.3s, letter-spacing 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
+            letter-spacing: 0.18em;
+        }
+
+        /* === LAYOUT === */
+        .container { max-width: 1120px; margin: 0 auto; padding: 0 6%; }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            position: relative;
+        }
+
+        .hero-inner { position: relative; z-index: 1; }
+
+        .hero-eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--gold);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            animation: reveal 0.8s 0.2s forwards;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            width: 48px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .hero h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+            font-weight: 700;
+            line-height: 1.12;
+            margin-bottom: 2rem;
+            color: var(--text);
+            max-width: 680px;
+            opacity: 0;
+            animation: reveal 0.8s 0.35s forwards;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-narrative {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 560px;
+            line-height: 1.85;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: reveal 0.8s 0.5s forwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3.5rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: reveal 0.8s 0.65s forwards;
+        }
+
+        .stat { display: flex; flex-direction: column; }
+        .stat-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .stat-desc {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.25rem;
+            opacity: 0;
+            animation: reveal 0.8s 0.8s forwards;
+        }
+
+        .btn {
+            padding: 0.95rem 2rem;
+            border-radius: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: var(--bg);
+            border: none;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(212,168,83,0.25);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* === SECTION SCAFFOLDING === */
+        section { padding: 7rem 0; position: relative; z-index: 1; }
+
+        .section-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.85rem;
+            color: var(--gold);
+            opacity: 0.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-heading {
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 3.5rem;
+            line-height: 1.7;
+        }
+
+        .section-divider {
+            width: 48px;
+            height: 1px;
+            background: var(--gold);
+            margin-bottom: 3.5rem;
+            opacity: 0.4;
+        }
+
+        /* === PROJECTS === */
+        .projects-section { background: var(--bg-warm); }
+
+        .case-study {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .case-study:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 64px rgba(0,0,0,0.3), 0 0 0 1px var(--border-hover);
+        }
+
+        .case-top {
+            padding: 2.25rem 2.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .case-name {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .badge {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 3px;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-hackathon {
+            background: rgba(167,139,250,0.1);
+            color: #a78bfa;
+            border: 1px solid rgba(167,139,250,0.25);
+        }
+        .badge-live {
+            background: rgba(143,188,143,0.1);
+            color: var(--sage);
+            border: 1px solid rgba(143,188,143,0.25);
+        }
+        .badge-published {
+            background: var(--gold-dim);
+            color: var(--gold);
+            border: 1px solid rgba(212,168,83,0.25);
+        }
+
+        .case-domain {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0 2.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .case-body {
+            padding: 1.5rem 2.5rem 2rem;
+        }
+
+        .case-narrative {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .case-narrative strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .case-results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .metric-pill {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            padding: 0.3rem 0.7rem;
+            background: var(--gold-glow);
+            border: 1px solid rgba(212,168,83,0.15);
+            border-radius: 3px;
+            color: var(--gold);
+            letter-spacing: 0.02em;
+        }
+
+        .case-footer {
+            padding: 0 2.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tech-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+        .tech {
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.3rem 0.65rem;
+            background: var(--bg);
+            border-radius: 3px;
+            color: var(--text-muted);
+            letter-spacing: 0.01em;
+        }
+
+        .case-links {
+            display: flex;
+            gap: 0.6rem;
+        }
+        .case-links a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-decoration: none;
+            padding: 0.4rem 0.85rem;
+            border: 1px solid rgba(212,168,83,0.25);
+            border-radius: 3px;
+            letter-spacing: 0.04em;
+            transition: all 0.25s;
+        }
+        .case-links a:hover {
+            background: var(--gold-dim);
+        }
+
+        /* === RESEARCH === */
+        .research-section { background: var(--bg); }
+
+        .paper {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 8px 8px 0;
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.35s;
+        }
+        .paper:hover {
+            border-left-color: var(--gold);
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .paper-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .paper-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            max-width: 65%;
+            line-height: 1.4;
+        }
+
+        .paper-venue {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .paper-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 300;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .paper-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* === EXPERIENCE === */
+        .exp-section { background: var(--bg-warm); }
+
+        .timeline { position: relative; margin-left: 1rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: linear-gradient(180deg, var(--gold), rgba(212,168,83,0.1));
+        }
+
+        .tl-item {
+            padding-left: 2.5rem;
+            padding-bottom: 3rem;
+            position: relative;
+        }
+        .tl-item:last-child { padding-bottom: 0; }
+
+        .tl-dot {
+            position: absolute;
+            left: -4px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--gold);
+        }
+
+        .tl-date {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--gold);
+            letter-spacing: 0.06em;
+            margin-bottom: 0.35rem;
+        }
+
+        .tl-item h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .tl-company {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .tl-story {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 0.75rem;
+            max-width: 620px;
+        }
+
+        .tl-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        /* === EDUCATION === */
+        .edu-section { background: var(--bg); }
+
+        .edu-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .edu-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: border-color 0.3s;
+        }
+        .edu-item:hover { border-color: var(--border-hover); }
+
+        .edu-item h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .edu-school {
+            color: var(--gold);
+            font-size: 0.88rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+        .edu-year {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+        .edu-focus {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* === SKILLS === */
+        .skills-section { background: var(--bg-warm); }
+
+        .skills-mosaic {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .skill-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.75rem;
+            transition: border-color 0.3s;
+        }
+        .skill-block:hover { border-color: var(--border-hover); }
+
+        .skill-block h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+        .skill-tag {
+            font-size: 0.8rem;
+            font-weight: 400;
+            padding: 0.4rem 0.75rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            transition: all 0.25s;
+        }
+        .skill-tag:hover {
+            border-color: rgba(212,168,83,0.3);
+            color: var(--text);
+        }
+
+        /* === COMMUNITY === */
+        .community-section { background: var(--bg); }
+
+        .comm-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+        }
+
+        .comm-item {
+            flex: 1;
+            min-width: 200px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.75rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .comm-item:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+        }
+        .comm-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+        .comm-item h4 {
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .comm-item p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* === CONTACT === */
+        .contact-section {
+            text-align: center;
+            padding: 8rem 0;
+            background: var(--bg-warm);
+        }
+
+        .contact-section .section-heading {
+            margin-bottom: 1rem;
+        }
+
+        .contact-desc {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            font-weight: 300;
+            max-width: 480px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .contact-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.15rem;
+            transition: all 0.3s;
+        }
+        .contact-icon:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(212,168,83,0.15);
+        }
+
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            padding: 2rem 6%;
+            border-top: 1px solid var(--border);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+        footer span { color: var(--gold); }
+
+        /* === ANIMATIONS === */
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 5%; }
+            .nav-links { display: none; }
+            .hero { padding-top: 4rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+            section { padding: 4.5rem 0; }
+            .case-top, .case-body, .case-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .paper { padding: 1.5rem; }
+            .paper-title { max-width: 100%; }
+            .container { padding: 0 5%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-lines"></div>
+    <div class="ambient-light"></div>
+
+    <nav>
+        <div class="logo">Irtika Khan</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Work</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Stack</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-eyebrow">AI Systems Architect &amp; Applied Researcher</div>
+                <h1>I design AI systems that solve <em>real problems</em> at scale.</h1>
+                <p class="hero-narrative">
+                    Two years of infrastructure engineering taught me what production-grade actually means. Now I architect multi-agent detection systems, Transformer forecasters, and explainable clinical AI &mdash; from problem framing through deployment.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">99.2%</span>
+                        <span class="stat-desc">Detection Accuracy</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">0.964</span>
+                        <span class="stat-desc">AUC &middot; CardioGuard</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">41%</span>
+                        <span class="stat-desc">MAE Improvement</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2</span>
+                        <span class="stat-desc">Papers Accepted</span>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-gold">Get in Touch</a>
+                    <a href="#projects" class="btn btn-outline">View Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section class="projects-section" id="projects">
+        <div class="container">
+            <div class="section-number">01</div>
+            <h2 class="section-heading">Selected Work</h2>
+            <p class="section-sub">Each project began with a real problem. Here is the challenge, the approach, and the measurable outcome.</p>
+            <div class="section-divider"></div>
+
+            <!-- IoT Sentinel -->
+            <div class="case-study scroll-reveal">
+                <div class="case-top">
+                    <span class="case-name">IoT Sentinel</span>
+                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                        <span class="badge badge-hackathon">Microsoft Hackathon</span>
+                        <span class="badge badge-live">Live Demo</span>
+                    </div>
+                </div>
+                <div class="case-domain">Multi-Agent AI &middot; IoT Security</div>
+                <div class="case-body">
+                    <p class="case-narrative">
+                        <strong>Challenge:</strong> Real-time IoT threat detection demands speed and coordination that single-model pipelines can't deliver &mdash; especially when decisions must happen at the edge, not in a batch queue.<br><br>
+                        <strong>Approach:</strong> Built a multi-agent system where four specialised AI agents collaborate in real-time: each handles a distinct detection responsibility, coordinated by an ensemble orchestrator that fuses outputs into a unified threat classification. Designed for Azure deployment with a live Gradio interface.<br><br>
+                        <strong>Impact:</strong> Real-time inference at 200+ records per second, Azure-deployable architecture, and a working live demo showcasing multi-agent coordination under load.
+                    </p>
+                    <div class="case-results">
+                        <span class="metric-pill">200+ rec/sec</span>
+                        <span class="metric-pill">4 Specialised Agents</span>
+                        <span class="metric-pill">Real-Time Inference</span>
+                        <span class="metric-pill">Azure-Deployable</span>
+                    </div>
+                </div>
+                <div class="case-footer">
+                    <div class="tech-row">
+                        <span class="tech">Python</span>
+                        <span class="tech">Multi-Agent Systems</span>
+                        <span class="tech">Azure Functions</span>
+                        <span class="tech">Gradio</span>
+                        <span class="tech">Docker</span>
+                    </div>
+                    <div class="case-links">
+                        <a href="https://irtikak.github.io/malware-detection-ai/">Live Demo &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CardioGuard -->
+            <div class="case-study scroll-reveal">
+                <div class="case-top">
+                    <span class="case-name">CardioGuard</span>
+                    <span class="badge badge-live">Live Demo</span>
+                </div>
+                <div class="case-domain">Healthcare AI &middot; Explainability</div>
+                <div class="case-body">
+                    <p class="case-narrative">
+                        <strong>Challenge:</strong> Clinicians don't trust black-box models. A risk score means nothing without understanding <em>why</em>.<br><br>
+                        <strong>Approach:</strong> Built an end-to-end ML pipeline for cardiovascular risk stratification with SHAP-driven explanations for every prediction, showing exactly which features drive each risk score.<br><br>
+                        <strong>Impact:</strong> 0.964 AUC, 96.4% sensitivity, deployed as a live Gradio application on Hugging Face Spaces. Clinicians get transparent, actionable risk assessments.
+                    </p>
+                    <div class="case-results">
+                        <span class="metric-pill">AUC 0.964</span>
+                        <span class="metric-pill">96.4% Sensitivity</span>
+                        <span class="metric-pill">SHAP Explainability</span>
+                        <span class="metric-pill">Production Deployed</span>
+                    </div>
+                </div>
+                <div class="case-footer">
+                    <div class="tech-row">
+                        <span class="tech">Random Forest</span>
+                        <span class="tech">SHAP</span>
+                        <span class="tech">Scikit-learn</span>
+                        <span class="tech">Gradio</span>
+                        <span class="tech">HF Spaces</span>
+                    </div>
+                    <div class="case-links">
+                        <a href="https://github.com/IrtikaK/Cardiovascular_Risk_Prediction">GitHub</a>
+                        <a href="https://huggingface.co/spaces/IrtikaK25/cardio-risk-app">Live Demo &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EcoForecast -->
+            <div class="case-study scroll-reveal">
+                <div class="case-top">
+                    <span class="case-name">EcoForecast</span>
+                </div>
+                <div class="case-domain">Sustainability &middot; Time Series</div>
+                <div class="case-body">
+                    <p class="case-narrative">
+                        <strong>Challenge:</strong> Policymakers need reliable energy and emissions forecasts, but traditional ARIMA models weren't cutting it.<br><br>
+                        <strong>Approach:</strong> Built time-series models for energy consumption and CO&#8322; emissions across India, China, and the USA. Engineered 15+ domain-informed features and conducted systematic model comparison.<br><br>
+                        <strong>Impact:</strong> Random Forest outperformed ARIMA by 89.6%, demonstrating ML's clear advantage for environmental forecasting at national scale.
+                    </p>
+                    <div class="case-results">
+                        <span class="metric-pill">RF &gt; ARIMA by 89.6%</span>
+                        <span class="metric-pill">15+ Engineered Features</span>
+                        <span class="metric-pill">3-Country Analysis</span>
+                    </div>
+                </div>
+                <div class="case-footer">
+                    <div class="tech-row">
+                        <span class="tech">ARIMA</span>
+                        <span class="tech">Random Forest</span>
+                        <span class="tech">pmdarima</span>
+                        <span class="tech">Pandas</span>
+                    </div>
+                    <div class="case-links">
+                        <a href="https://github.com/IrtikaK/Environmental-Sustainability-Analysis-Using-Machine-Learning">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== RESEARCH ========== -->
+    <section class="research-section" id="research">
+        <div class="container">
+            <div class="section-number">02</div>
+            <h2 class="section-heading">Research &amp; Publications</h2>
+            <p class="section-sub">Peer-reviewed work at the intersection of graph intelligence, sequence modelling, and real-world deployment.</p>
+            <div class="section-divider"></div>
+
+            <div class="paper scroll-reveal">
+                <div class="paper-header">
+                    <span class="paper-title">GNN-Based Malware Detection in IoT Networks: An Attack Graph Approach</span>
+                    <span class="badge badge-published">IEEE CIPHER 2026</span>
+                </div>
+                <div class="paper-venue">Presented at International Conference &middot; Acceptance Rate: 29%</div>
+                <p class="paper-desc">
+                    Led end-to-end research from problem framing through publication. Designed GNN architectures over attack graph representations of IoT-23 network traffic, benchmarking GraphSAGE, GAT, and GIN across varied topologies. Conducted ablation studies evaluating generalisation, convergence, and computational trade-offs.
+                </p>
+                <div class="paper-metrics">
+                    <span class="metric-pill">99.2% Accuracy (GraphSAGE)</span>
+                    <span class="metric-pill">100% Accuracy (GAT)</span>
+                    <span class="metric-pill">IoT-23 Dataset</span>
+                </div>
+            </div>
+
+            <div class="paper scroll-reveal">
+                <div class="paper-header">
+                    <span class="paper-title">Multi-Horizon Forecasting of UK Electricity Demand Using LSTM, GRU, and Transformer Models</span>
+                    <span class="badge badge-published">Springer ETMCIS 2026</span>
+                </div>
+                <div class="paper-venue">Accepted &middot; Springer Conference Publication</div>
+                <p class="paper-desc">
+                    Engineered Transformer-based sequence models achieving 41% MAE improvement over LSTM baselines at 54% fewer parameters. Processed 139,632+ real-world half-hourly observations of UK national electricity demand, benchmarking across nine forecast horizons from 1 hour to 4 weeks.
+                </p>
+                <div class="paper-metrics">
+                    <span class="metric-pill">41% MAE Improvement</span>
+                    <span class="metric-pill">54% Fewer Parameters</span>
+                    <span class="metric-pill">139K+ Observations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== EXPERIENCE ========== -->
+    <section class="exp-section" id="experience">
+        <div class="container">
+            <div class="section-number">03</div>
+            <h2 class="section-heading">Experience</h2>
+            <p class="section-sub">From infrastructure reliability to AI product delivery &mdash; every role sharpened how I think about systems.</p>
+            <div class="section-divider"></div>
+
+            <div class="timeline">
+                <div class="tl-item scroll-reveal">
+                    <div class="tl-dot"></div>
+                    <div class="tl-date">Jan 2025 &mdash; May 2025</div>
+                    <h3>AI &amp; Data Engineer (Intern)</h3>
+                    <div class="tl-company">Fortray Global Services Limited &middot; London</div>
+                    <p class="tl-story">
+                        Walked into a team drowning in manual reporting. Built automated Python pipelines that ingested 10,000+ client records, surfacing patterns that directly shaped AI product strategy. Created data governance documentation that cut onboarding friction. Became the bridge between engineering and non-technical stakeholders.
+                    </p>
+                    <div class="tl-chips">
+                        <span class="metric-pill">10K+ records</span>
+                        <span class="metric-pill">Automated pipelines</span>
+                        <span class="metric-pill">AI strategy delivery</span>
+                    </div>
+                </div>
+
+                <div class="tl-item scroll-reveal">
+                    <div class="tl-dot"></div>
+                    <div class="tl-date">Feb 2022 &mdash; Jan 2024</div>
+                    <h3>Analyst &mdash; Linux Systems &amp; IT Infrastructure</h3>
+                    <div class="tl-company">HCL Technologies &middot; India</div>
+                    <p class="tl-story">
+                        Owned reliability for 200TB+ of enterprise data infrastructure. Implemented ServiceNow-driven prioritisation that cut mean resolution time by 25%. Automated monitoring with Nagios and Python, saving 15 hours per week and boosting uptime by 3.5%. Executed disaster recovery with sub-4-hour RTOs. This role gave me the infrastructure instincts I bring to every ML system I build.
+                    </p>
+                    <div class="tl-chips">
+                        <span class="metric-pill">99.9% uptime</span>
+                        <span class="metric-pill">25% faster resolution</span>
+                        <span class="metric-pill">15 hrs/week saved</span>
+                        <span class="metric-pill">RTO &lt; 4hrs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== EDUCATION ========== -->
+    <section class="edu-section" id="education">
+        <div class="container">
+            <div class="section-number">04</div>
+            <h2 class="section-heading">Education</h2>
+            <div class="section-divider"></div>
+
+            <div class="edu-row">
+                <div class="edu-item scroll-reveal">
+                    <h3>MSc Artificial Intelligence Technology</h3>
+                    <div class="edu-school">Northumbria University, London</div>
+                    <div class="edu-year">2024 &mdash; 2026</div>
+                    <div class="edu-focus">Focus: ML Systems Design, AI for IoT, Cloud-Native ML Pipelines, Cybersecurity</div>
+                </div>
+                <div class="edu-item scroll-reveal">
+                    <h3>B.Tech Electrical Engineering</h3>
+                    <div class="edu-school">Rajasthan Technical University, India</div>
+                    <div class="edu-year">2017 &mdash; 2021</div>
+                    <div class="edu-focus">Foundation: Systems Thinking, Signal Processing, Mathematical Modelling</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SKILLS ========== -->
+    <section class="skills-section" id="skills">
+        <div class="container">
+            <div class="section-number">05</div>
+            <h2 class="section-heading">Tech Stack</h2>
+            <div class="section-divider"></div>
+
+            <div class="skills-mosaic">
+                <div class="skill-block scroll-reveal">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+                <div class="skill-block scroll-reveal">
+                    <h3>ML &amp; Deep Learning</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch Geometric</span>
+                        <span class="skill-tag">Keras</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">HF Transformers</span>
+                    </div>
+                </div>
+                <div class="skill-block scroll-reveal">
+                    <h3>Specialisations</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Transformers</span>
+                        <span class="skill-tag">Graph Neural Networks</span>
+                        <span class="skill-tag">Multi-Agent Systems</span>
+                        <span class="skill-tag">Time Series</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">Explainable AI (SHAP)</span>
+                        <span class="skill-tag">Attention Mechanisms</span>
+                    </div>
+                </div>
+                <div class="skill-block scroll-reveal">
+                    <h3>Deployment &amp; Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Gradio</span>
+                        <span class="skill-tag">Azure Functions</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">HF Spaces</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Linux</span>
+                    </div>
+                </div>
+                <div class="skill-block scroll-reveal">
+                    <h3>Data</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Jupyter</span>
+                        <span class="skill-tag">MySQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COMMUNITY ========== -->
+    <section class="community-section" id="community">
+        <div class="container">
+            <div class="section-number">06</div>
+            <h2 class="section-heading">Community</h2>
+            <div class="section-divider"></div>
+
+            <div class="comm-row">
+                <div class="comm-item scroll-reveal">
+                    <div class="comm-icon">&#128105;&#8205;&#128187;</div>
+                    <h4>Women Techmakers</h4>
+                    <p>Diversity in AI/STEM</p>
+                </div>
+                <div class="comm-item scroll-reveal">
+                    <div class="comm-icon">&#9878;&#65039;</div>
+                    <h4>Tech Equity Collective</h4>
+                    <p>Inclusive Innovation</p>
+                </div>
+                <div class="comm-item scroll-reveal">
+                    <div class="comm-icon">&#127891;</div>
+                    <h4>Team Shunya, IIT Bombay</h4>
+                    <p>Campus Ambassador</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-number">07</div>
+            <h2 class="section-heading">Let's Build Something</h2>
+            <p class="contact-desc">Open to roles in Applied AI/ML Engineering, Healthcare AI, and Intelligent Systems &mdash; teams that value speed, rigour, and end-to-end ownership.</p>
+            <div class="contact-icons">
+                <a href="https://linkedin.com/in/irtika-khan" class="contact-icon" title="LinkedIn">in</a>
+                <a href="mailto:irtiqakhan2016@gmail.com" class="contact-icon" title="Email">&#9993;</a>
+                <a href="https://github.com/IrtikaK" class="contact-icon" title="GitHub">&#8984;</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Irtika Khan. Engineered with intent. Deployed to <span>make an impact</span>.</p>
+    </footer>
+
+    <!-- Scroll Reveal Animation -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
