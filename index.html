@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Irtika Khan · AI for Energy &amp; Intelligent Systems</title>
-<meta name="description" content="Research portfolio of Irtika Khan: electrical engineering and artificial intelligence for smart grids, distribution system state estimation and intelligent energy management.">
+<meta name="description" content="Research portfolio of Irtika Khan: electrical engineering and artificial intelligence for smart grids, energy forecasting and intelligent energy management.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3C/svg%3E">
 <style>body{margin:0;background:#0f172a;color:#f8fafc}</style>
 <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
@@ -72,8 +72,8 @@ nav a.l:hover{color:var(--ink)}nav a.l.on{color:var(--ink);border-color:var(--go
 .readout{font-size:.82rem;color:var(--ink2);padding:10px 8px 4px;min-height:2.6em}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);padding:2px 8px 6px}
 .legend b{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.ic{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s;min-height:190px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.ic{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s}
 .ic:hover,.ic:focus-within{border-color:var(--gold);transform:translateY(-3px)}
 .ic::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--blue);transition:width .35s}
 .ic:hover::before,.ic:focus-within::before{width:100%}
@@ -165,17 +165,17 @@ section{padding:68px 0}.pub{grid-template-columns:1fr;gap:4px}
 #logic{padding-bottom:24px}
 #logic .lede{margin-bottom:26px}
 .thesis{font-family:var(--serif);font-size:clamp(1.2rem,2.2vw,1.55rem);line-height:1.4;max-width:34em;margin-bottom:22px;border-left:3px solid var(--gold);padding-left:20px}
-.flow{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:18px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);margin-bottom:18px}
 .st{background:var(--card);border:1px solid var(--line);margin-left:-1px;padding:18px 20px;text-align:left;cursor:pointer;font:inherit;color:var(--ink);position:relative;transition:border-color .2s,box-shadow .2s}
 .st:first-child{margin-left:0;border-radius:10px 0 0 10px}.st:last-child{border-radius:0 10px 10px 0}
 .st b{display:block;font:600 1.25rem var(--serif)}.st small{color:var(--muted);font-size:.85rem}
 .st:hover{border-color:var(--blue);z-index:1}
 .st[aria-selected=true]{border-color:var(--gold);z-index:2;box-shadow:inset 0 -4px 0 var(--gold)}
-.lg{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px 28px;display:grid;grid-template-columns:1fr 1fr;gap:22px 36px;animation:fade .35s}
+.lg{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px 36px;animation:fade .35s}
 .lg h4{font-size:.9rem;color:var(--gold);margin-bottom:5px}.lg p{color:var(--ink2);font-size:.95rem;max-width:60ch}
 .lg .hd{grid-column:1/-1;border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ink)}
 .lg .hd a{color:var(--blue)}
-@media (max-width:760px){.flow{grid-template-columns:1fr 1fr}.st,.st:first-child,.st:last-child{border-radius:0;margin-left:0;margin-top:-1px}.lg{grid-template-columns:1fr}}
+@media (max-width:760px){.flow{grid-template-columns:1fr}.st,.st:first-child,.st:last-child{border-radius:0;margin-left:0;margin-top:-1px}.lg{grid-template-columns:1fr}}
 @media (max-width:980px){.projects{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
 *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -198,15 +198,13 @@ const NAV = [
 
 const HEADLINE = ["Advancing", "Intelligent", "Energy", "Systems", "Through", "Artificial", "Intelligence."];
 
-const TAGS = ["DSSE", "Graph neural networks", "Transformers", "Microgrids", "Reinforcement learning", "Grid resilience"];
+const TAGS = ["Energy forecasting", "Graph neural networks", "Transformers", "Microgrids", "Reinforcement learning", "Grid resilience"];
 
 const INTERESTS = [
-  ["Intelligent Distribution Networks", "Observability and control of distribution feeders with high DER penetration.", "Focus: sparse sensing, radial topology, feeder-level analytics."],
-  ["Physics-Informed State Estimation", "Learning models that respect power-flow structure instead of fighting it.", "Focus: DSSE with limited and noisy measurements."],
-  ["Graph Learning for Power Systems", "Buses and lines are a graph, so graph models are a natural fit.", "Focus: GNNs and attention over network topology."],
-  ["Intelligent Energy Management", "Coordinating generation, storage and flexible loads in real time.", "Focus: multi-agent reinforcement learning for microgrids."],
-  ["Renewable Energy Integration", "Making solar, wind, storage and EVs work together on the network.", "Focus: hybrid AC–DC microgrids and vehicle-to-grid."],
-  ["Predictive Modelling and Grid Resilience", "Forecasting demand and detecting threats before they disrupt supply.", "Focus: Transformer forecasting, cyber-physical security."],
+  ["Graph Learning for Power Systems", "Graph models that follow the structure of the network."],
+  ["Intelligent Energy Management", "Real-time coordination of generation, storage and loads."],
+  ["Renewable Energy Integration", "Solar, wind, storage and EVs working together on the grid."],
+  ["Forecasting and Grid Resilience", "Predicting demand and detecting threats before they disrupt supply."],
 ];
 
 const PROJECTS = [
@@ -244,7 +242,7 @@ const PROJECTS = [
     status: "Published · IEEE CIPHER 2026",
     badge: "b-pub",
     title: "GNN-Based Malware Detection in IoT Networks: An Attack Graph Approach",
-    summary: "Graph-based threat detection on attack-graph representations of network traffic. It supports my work on resilient cyber-physical systems.",
+    summary: "Graph-based threat detection on attack-graph representations of network traffic.",
     chips: ["GraphSAGE", "GAT", "GIN", "IoT-23", "Topology analysis"],
     contribution: [
       "GNN architectures over attack graphs of IoT-23 traffic.",
@@ -295,39 +293,24 @@ const FILTERS = [["all", "All"], ["e", GROUPS.e], ["p", GROUPS.p], ["c", GROUPS.
 
 const STAGES = [
   {
-    name: "Observe", q: "What is the state?",
-    question: "What is the state of the feeder when few sensors report and readings are noisy?",
-    approach: "Topology-aware graph learning that respects how power actually flows.",
-    evidence: "An active research direction in distribution system state estimation. No results are published yet, so none are claimed here.",
-    scope: "Sparse and noisy measurements are the open problem.",
-    handoff: "The next stage gets a state estimate it can rely on.",
-    link: "",
-  },
-  {
     name: "Predict", q: "What comes next?",
-    question: "How much electricity will be needed, and over what horizon?",
-    approach: "Transformers compared with LSTM and GRU baselines across nine horizons, from 1 hour to 4 weeks.",
-    evidence: "41% lower MAE than the LSTM baseline, with 54% fewer parameters, on 139,632+ half-hourly observations (Springer ETMCIS 2026).",
-    scope: "UK national demand. It says nothing about individual feeders.",
-    handoff: "The next stage can plan ahead instead of only reacting.",
+    question: "How much electricity will be needed?",
+    approach: "Transformers vs LSTM and GRU across nine horizons, 1 hour to 4 weeks.",
+    evidence: "41% lower MAE than LSTM with 54% fewer parameters (Springer ETMCIS 2026).",
     link: "#research",
   },
   {
     name: "Decide", q: "What should we do?",
-    question: "How should storage, renewables and EVs be coordinated as conditions change?",
-    approach: "A Transformer forecast feeds multi-agent PPO controllers in a hybrid AC–DC microgrid.",
-    evidence: "Up to 95.7% load satisfaction and 10–50x lower battery degradation across stress scenarios (IEEE PEMC 2026).",
-    scope: "Figures come from that study's own scenarios and are not comparable with the other studies.",
-    handoff: "Automated decisions now exist, so they need protecting.",
+    question: "How should storage, renewables and EVs be coordinated?",
+    approach: "Transformer forecasts feed multi-agent PPO controllers.",
+    evidence: "Up to 95.7% load satisfaction and 10–50x lower battery degradation (IEEE PEMC 2026).",
     link: "#research",
   },
   {
     name: "Protect", q: "Can we trust it?",
-    question: "Can the system be trusted when its devices and data are under attack?",
-    approach: "Graph neural networks over attack-graph representations of network traffic.",
+    question: "Can the system be trusted under attack?",
+    approach: "Graph neural networks over attack graphs of network traffic.",
     evidence: "99.2% GraphSAGE accuracy on IoT-23 (IEEE CIPHER 2026).",
-    scope: "IoT network traffic, not power-grid data. It supports the security side of the chain.",
-    handoff: "This closes the loop: trust in the data every other stage depends on.",
     link: "#publications",
   },
 ];
@@ -367,7 +350,6 @@ const EXPERIENCE = [
       "Managed Linux systems, backup and disaster recovery.",
       "Automated monitoring with ServiceNow and Nagios, sustaining 99.9% uptime.",
     ],
-    note: "This was IT infrastructure rather than power engineering. What carried over is the discipline of building systems that stay dependable, which matters for any intelligent system that has to run on a live grid.",
   },
 ];
 
@@ -694,9 +676,8 @@ function Hero() {
             ))}
           </h1>
           <p className="d">
-            I work at the intersection of electrical engineering and artificial intelligence, developing data-driven and
-            physics-informed approaches for energy forecasting, distribution system state estimation, intelligent energy
-            management and resilient power networks.
+            I combine electrical engineering and AI for energy forecasting, intelligent energy management and resilient
+            power networks.
           </p>
           <div className="tags">
             {TAGS.map((t, i) => (
@@ -730,14 +711,12 @@ function Interests() {
       <div className="wrap">
         <SectionHead
           title="Research interests"
-          lede="Six connected areas, all aimed at making distribution networks easier to observe, forecast and operate."
         />
         <div className="cards">
-          {INTERESTS.map(([title, text, more]) => (
-            <Reveal as="article" className="ic" tabIndex={0} key={title}>
+          {INTERESTS.map(([title, text]) => (
+            <Reveal as="article" className="ic" key={title}>
               <h3>{title}</h3>
               <p>{text}</p>
-              <p className="more">{more}</p>
             </Reveal>
           ))}
         </div>
@@ -757,12 +736,7 @@ function Logic() {
         <span className="rule" />
         <h2>How the work fits together</h2>
         <p className="thesis">
-          I treat grid intelligence as a chain. You can only forecast what you can observe, only control what you can
-          forecast, and only trust a controller whose data you can protect.
-        </p>
-        <p className="lede">
-          Each stage answers one question. Select a stage to see the approach, the evidence behind it and where that
-          evidence stops.
+          Forecast demand, decide how to act, and protect the data those decisions rely on.
         </p>
         <div className="flow" role="tablist" aria-label="Research chain">
           {STAGES.map((x, i) => (
@@ -788,10 +762,8 @@ function Logic() {
           <div><h4>Question</h4><p>{s.question}</p></div>
           <div><h4>Approach</h4><p>{s.approach}</p></div>
           <div><h4>Evidence</h4><p>{s.evidence}</p></div>
-          <div><h4>Scope of the evidence</h4><p>{s.scope}</p></div>
           <div className="hd">
-            <span>{s.handoff}</span>
-            {s.link && <a href={s.link}>See the work</a>}
+            <a href={s.link}>See the work</a>
           </div>
         </div>
       </div>
@@ -849,7 +821,7 @@ function Research() {
       <div className="wrap">
         <SectionHead
           title="Featured research"
-          lede="Three studies, ordered by how central they are to my energy-systems work. Open any card for its contribution and results."
+          lede="Open a card for the contribution and results."
         />
         <div className="projects">
           {PROJECTS.map((p, i) => <Project key={p.title} p={p} i={i} />)}
@@ -867,7 +839,6 @@ function Publications() {
       <div className="wrap">
         <SectionHead
           title="Publications"
-          lede="Status is shown exactly as it stands today. Under-review and ongoing work is not presented as published."
         />
         <div className="fbar" role="group" aria-label="Filter publications">
           {FILTERS.map(([key, label]) => (
@@ -928,7 +899,7 @@ function Metrics() {
       <div className="wrap">
         <SectionHead
           title="Research in numbers"
-          lede="Figures come from separate studies with different data and tasks, so they should not be compared with each other."
+          lede="From separate studies, so not directly comparable."
         />
         <div className="mets" ref={ref}>
           {METRICS.map(([v, s, label]) => (
@@ -938,7 +909,6 @@ function Metrics() {
             </div>
           ))}
         </div>
-        <p className="note">Load satisfaction is from the PEMC 2026 microgrid study; accuracy is from the IoT-23 GraphSAGE study.</p>
       </div>
     </section>
   );
@@ -950,7 +920,7 @@ function Expertise() {
   return (
     <section className="alt" id="expertise">
       <div className="wrap">
-        <SectionHead title="Technical expertise" lede="Grouped by how I use them in research." />
+        <SectionHead title="Technical expertise" />
         <div className="tabs" role="tablist" aria-label="Expertise categories">
           {EXPERTISE.map(([name], i) => (
             <button
@@ -1004,7 +974,6 @@ function Experience() {
       <div className="wrap">
         <SectionHead
           title="Professional experience"
-          lede="Industry work that built my habits around reliability, data quality and automation."
         />
         <div className="tl" ref={tlRef}>
           {EXPERIENCE.map((x) => (
@@ -1048,7 +1017,7 @@ function Contact() {
       <div className="wrap">
         <SectionHead
           title="Building the Future of Intelligent Energy Systems."
-          lede="I am interested in research collaborations, doctoral opportunities and interdisciplinary projects involving artificial intelligence, intelligent power systems, renewable energy integration and resilient energy networks."
+          lede="Open to research collaborations and doctoral opportunities in AI for energy systems."
         />
         <div className="cl">
           {CONTACTS.map((c) => (
